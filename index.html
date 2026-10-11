@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172c48">
+<title>رحلة ياسين — طوّر نفسك</title>
+<style>
+:root{color-scheme:light;--bg:#f3f6fa;--card:#fff;--ink:#1c2c40;--muted:#65758a;--line:#e1e7ef;--navy:#203c5b;--gold:#e9bb60;--green:#28794c;--soft:#edf3f9;--danger:#a83b45}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}.wrap{max-width:760px;margin:auto;padding:16px}.hero{background:linear-gradient(135deg,#172c48,#355779);color:white;padding:23px;border-radius:22px;box-shadow:0 8px 24px #172c481a}.eyebrow{font-size:11px;letter-spacing:1.3px;opacity:.75;font-weight:800}.hero h1{font-size:27px;margin:6px 0}.hero p{margin:0;color:#dce7f2;font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:19px 0 13px}.stat{padding:11px 9px;border-radius:13px;background:#ffffff13}.stat strong{display:block;font-size:23px}.stat span{font-size:11px;color:#dce7f2}.progressline{display:flex;justify-content:space-between;font-size:12px;gap:8px}.bar{height:8px;background:#ffffff25;border-radius:20px;overflow:hidden;margin-top:8px}.bar>div{height:100%;background:var(--gold);width:0;transition:width .2s}.tabs{display:flex;gap:8px;overflow:auto;margin:16px 0}.tab{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;border-radius:12px}.tab.active{background:var(--navy);color:white;border-color:var(--navy)}.panel{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:16px;margin-bottom:12px}.heading{font-size:18px;font-weight:850;margin:0 0 3px}.sub{font-size:12px;color:var(--muted);margin:0 0 14px}.group-title{font-size:12px;font-weight:800;color:var(--muted);margin:17px 0 8px}.task{display:flex;align-items:center;gap:11px;padding:12px 10px;border:1px solid var(--line);border-radius:13px;margin:8px 0;background:var(--card)}.task.done{background:#f5f8f5}.task input{width:21px;height:21px;accent-color:var(--green);flex-shrink:0}.task-main{flex:1;min-width:0}.task-name{font-weight:750}.task.done .task-name{text-decoration:line-through;color:var(--muted)}.task-desc{font-size:11px;color:var(--muted);margin-top:2px}.points{font-size:12px;font-weight:850;color:#a66c12;white-space:nowrap}.btn{border:0;border-radius:11px;padding:10px 13px;background:var(--navy);color:white;font-weight:750}.btn:disabled{opacity:.4;cursor:not-allowed}.btn-light{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:11px;padding:9px 12px}.btn-danger{color:var(--danger);border-color:#efd7d9}.row{display:flex;align-items:center;justify-content:space-between;gap:9px}.notice{background:var(--soft);border-radius:12px;padding:12px;font-size:12px;color:#40536b;margin-top:14px}.reward{display:flex;align-items:center;gap:12px}.reward-icon{font-size:27px;width:38px;text-align:center}.reward-main{flex:1;min-width:0}.reward-name{font-weight:800}.reward-meta{font-size:12px;color:var(--muted);margin-top:3px}.field{display:block;width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);margin:6px 0 12px}.label{font-size:12px;font-weight:750}.hide{display:none!important}.toast{position:sticky;top:8px;z-index:5;padding:11px 13px;background:#e7f5eb;border:1px solid #cce8d4;color:#205d36;border-radius:12px;margin:10px 0;font-size:13px}.small{font-size:12px}.history-row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}.history-row:last-child{border:0}.footer{text-align:center;color:var(--muted);font-size:11px;padding:18px 8px}@media(max-width:420px){.wrap{padding:10px}.hero{padding:18px}.hero h1{font-size:23px}.stat strong{font-size:20px}.panel{padding:13px}.task{gap:8px}.points{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<div class="eyebrow">YOUR PERSONAL QUEST</div>
+<h1>⚔️ رحلة ياسين</h1>
+<p>خطوة صغيرة كل يوم تصنع فرقًا كبيرًا.</p>
+<div class="stats">
+<div class="stat"><strong id="xp">0</strong><span>⭐ نقاط الخبرة</span></div>
+<div class="stat"><strong id="level">1</strong><span>🏅 المستوى</span></div>
+<div class="stat"><strong id="coins">0</strong><span>🪙 رصيد المتجر</span></div>
+</div>
+<div class="progressline"><span id="levelName">المبتدئ</span><span id="progressLabel">0 / 200 XP</span></div>
+<div class="bar"><div id="progress"></div></div>
+</header>
+<nav class="tabs" aria-label="أقسام اللعبة">
+<button class="tab active" data-page="tasks">📋 مهام اليوم</button>
+<button class="tab" data-page="rewards">🎁 المتجر</button>
+<button class="tab" data-page="stats">📈 تقدمي</button>
+</nav>
+<div id="toast" class="toast hide" role="status" aria-live="polite"></div>
+<main>
+<section id="page-tasks">
+<div class="panel">
+<div class="row"><h2 class="heading">مهامك اليومية</h2><span class="small" id="taskCount">0 / 0</span></div>
+<p class="sub">علّم على المهمة عند إكمالها لتحصل على نقاطها.</p>
+<div id="taskList"></div>
+<div class="notice">💡 لا تحتاج إلى يوم مثالي. لا تخسر نقاطك السابقة بسبب التعثر؛ ارجع إلى خطتك وواصل.</div>
+<div class="row" style="margin-top:14px;flex-wrap:wrap"><button class="btn-light" id="addTask">＋ مهمة خاصة</button><button class="btn-light" id="newDay">بدء يوم جديد ↻</button></div>
+</div>
+</section>
+<section id="page-rewards" class="hide">
+<div class="panel"><h2 class="heading">متجر المكافآت</h2><p class="sub">استبدل رصيدك بمكافآت رقمية أو حقيقية تختارها.</p><div id="rewardList"></div></div>
+<div class="panel">
+<h3 class="heading">＋ أضف مكافأة</h3>
+<label class="label" for="rewardName">اسم المكافأة</label><input class="field" id="rewardName" maxlength="55" placeholder="مثال: شراء شيء بسيط">
+<label class="label" for="rewardCost">السعر بالنقاط</label><input class="field" id="rewardCost" type="number" min="1" max="100000" value="100">
+<label class="label" for="rewardKind">نوع المكافأة</label><select class="field" id="rewardKind"><option>رقمية</option><option>حقيقية</option><option>وقت ترفيه</option></select>
+<button class="btn" id="addReward">إضافة إلى المتجر</button>
+<div class="notice">المكافآت الحقيقية اختيارية وتناسب إمكانياتك. لا تجعل النوم أو الطعام أو الراحة الأساسية مشروطة بالنقاط.</div>
+</div>
+</section>
+<section id="page-stats" class="hide">
+<div class="panel"><h2 class="heading">رحلتك حتى الآن</h2><p class="sub">تابع تقدمك دون مقارنة نفسك بأحد.</p>
+<div class="stats" style="margin:10px 0;color:var(--ink)">
+<div class="stat" style="background:var(--soft)"><strong id="totalTasks">0</strong><span style="color:var(--muted)">مهام مكتملة</span></div>
+<div class="stat" style="background:var(--soft)"><strong id="spent">0</strong><span style="color:var(--muted)">نقاط مصروفة</span></div>
+<div class="stat" style="background:var(--soft)"><strong id="days">1</strong><span style="color:var(--muted)">أيام مسجلة</span></div>
+</div>
+<div class="row"><b>إنجاز اليوم</b><span id="percent">0%</span></div><div class="bar" style="background:var(--soft)"><div id="dayBar" style="background:var(--green)"></div></div><p id="summary" class="sub" style="margin-top:8px;margin-bottom:0">ابدأ بأول مهمة.</p>
+</div>
+<div class="panel"><div class="row"><h3 class="heading">📅 سجل الأيام</h3><button class="btn-light small" id="exportData">تصدير نسخة احتياطية</button></div><div id="history" class="sub" style="margin-top:12px">سيظهر السجل عند بدء يوم جديد.</div><label class="label" for="importFile">استعادة نسخة احتياطية محفوظة</label><input class="field" id="importFile" type="file" accept=".json,application/json"></div>
+<div class="panel"><h3 class="heading">إعدادات البيانات</h3><p class="sub">يحفظ الموقع تقدمك تلقائيًا على هذا الجهاز والمتصفح باستخدام التخزين المحلي.</p><button class="btn-light" id="reset">إعادة ضبط اللعبة بالكامل</button></div>
+</section>
+</main>
+<div class="footer">رحلة ياسين · نسختك الشخصية · احفظ تقدمك بتصدير نسخة احتياطية دوريًا</div>
+</div>
+<script>
+(function(){
+'use strict';
+const KEY='yaseen-self-growth-v1';
+const baseTasks=[
+{id:'p1',name:'صلاة الفجر',desc:'أدِّ الصلاة في وقتها قدر استطاعتك',xp:15,group:'العبادة'},
+{id:'p2',name:'صلاة الظهر',desc:'حافظ على صلاتك',xp:15,group:'العبادة'},
+{id:'p3',name:'صلاة العصر',desc:'حافظ على صلاتك',xp:15,group:'العبادة'},
+{id:'p4',name:'صلاة المغرب',desc:'حافظ على صلاتك',xp:15,group:'العبادة'},
+{id:'p5',name:'صلاة العشاء',desc:'حافظ على صلاتك',xp:15,group:'العبادة'},
+{id:'s1',name:'جلسة مذاكرة 45 دقيقة',desc:'مادة واحدة مع إبعاد الهاتف',xp:30,group:'الدراسة'},
+{id:'s2',name:'جلسة مذاكرة إضافية',desc:'45 دقيقة أخرى حسب قدرتك',xp:30,group:'الدراسة'},
+{id:'s3',name:'مراجعة ما درسته',desc:'حل أسئلة أو راجع أخطاءك',xp:20,group:'الدراسة'},
+{id:'h1',name:'الابتعاد عن المشتتات',desc:'وقت محدد دون تصفح عشوائي',xp:15,group:'العادات'},
+{id:'h2',name:'التعامل مع المحفزات',desc:'غيّر المكان أو النشاط عند الحاجة',xp:20,group:'العادات'},
+{id:'h3',name:'تنظيم يوم الغد',desc:'حدّد أول مهمة ستبدأ بها غدًا',xp:10,group:'العادات'}
+];
+const baseRewards=[
+{id:'r1',name:'30 دقيقة ألعاب',cost:60,icon:'🎮',kind:'رقمية'},
+{id:'r2',name:'مشاهدة حلقة أنمي',cost:100,icon:'🍿',kind:'رقمية'},
+{id:'r3',name:'ساعة ترفيه إضافية',cost:150,icon:'🎧',kind:'وقت ترفيه'},
+{id:'r4',name:'شراء شيء بسيط تحبه',cost:500,icon:'🎁',kind:'حقيقية'}
+];
+const $=id=>document.getElementById(id);
+const fresh=()=>({xp:0,coins:0,spent:0,done:{},customTasks:[],customRewards:[],history:[],day:1,totalTasks:0,claimed:{}});
+let state=fresh(),tasks=baseTasks.map(x=>({...x})),rewards=baseRewards.map(x=>({...x}));
+function load(){try{const raw=localStorage.getItem(KEY);if(raw){const x=JSON.parse(raw);if(x&&typeof x==='object')state={...fresh(),...x};}}catch(e){showToast('تعذر قراءة الحفظ السابق؛ يمكنك استعادة نسخة احتياطية.');}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){showToast('تعذر الحفظ على هذا المتصفح. صدّر نسخة احتياطية من قسم تقدمي.');}}
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.remove('hide');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.add('hide'),4200);}
+function showToast(msg){setTimeout(()=>toast(msg),0);}
+function level(){return Math.floor(state.xp/200)+1;}
+function levelName(n){return n<2?'المبتدئ':n<4?'الملتزم':n<7?'المجتهد':n<10?'المحارب':'أسطورة الانضباط';}
+function safeText(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=txt;return e;}
+function renderHeader(){ $('xp').textContent=state.xp;$('coins').textContent=state.coins;$('level').textContent=level();$('levelName').textContent=levelName(level());let into=state.xp%200;$('progressLabel').textContent=into+' / 200 XP';$('progress').style.width=(into/2)+'%';}
+function renderTasks(){
+ const list=$('taskList');list.replaceChildren();const groups=['العبادة','الدراسة','العادات','مهامي الخاصة'];
+ groups.forEach(g=>{const arr=tasks.filter(t=>t.group===g);if(!arr.length)return;list.append(safeText('div','group-title',g));
+ arr.forEach(t=>{const done=!!state.done[t.id],row=safeText('label','task'+(done?' done':''),'');const check=document.createElement('input');check.type='checkbox';check.checked=done;check.setAttribute('aria-label',t.name);check.addEventListener('change',()=>{
+ if(check.checked&&!state.done[t.id]){state.done[t.id]=true;state.xp+=t.xp;state.coins+=t.xp;state.totalTasks++;toast('أحسنت! حصلت على '+t.xp+' XP و'+t.xp+' نقطة للمتجر.');}
+ else if(!check.checked&&state.done[t.id]){state.done[t.id]=false;state.xp=Math.max(0,state.xp-t.xp);state.coins=Math.max(0,state.coins-t.xp);state.totalTasks=Math.max(0,state.totalTasks-1);}
+ save();render();
+ });const main=safeText('div','task-main','');main.append(safeText('div','task-name',t.name),safeText('div','task-desc',t.desc));row.append(check,main,safeText('span','points','+'+t.xp+' XP'));list.append(row);});
+ });
+ const done=tasks.filter(t=>state.done[t.id]).length;$('taskCount').textContent=done+' / '+tasks.length;$('totalTasks').textContent=state.totalTasks;
+ $('percent').textContent=Math.round(done/Math.max(1,tasks.length)*100)+'%';$('dayBar').style.width=(done/Math.max(1,tasks.length)*100)+'%';
+ $('summary').textContent=done===0?'ابدأ بأول مهمة.':done===tasks.length?'رائع! أنجزت كل مهام اليوم.':'أكملت '+done+' مهمة. تقدّمك لا يحتاج إلى الكمال.';
+}
+function renderRewards(){
+ const list=$('rewardList');list.replaceChildren();
+ rewards.forEach(r=>{const card=safeText('div','panel reward','');card.style.margin='10px 0';const icon=safeText('div','reward-icon',r.icon||'🎁');const main=safeText('div','reward-main','');main.append(safeText('div','reward-name',r.name),safeText('div','reward-meta',r.cost+' نقطة · '+r.kind));const btn=safeText('button','btn','استبدال');btn.disabled=state.coins<r.cost;btn.addEventListener('click',()=>{if(state.coins<r.cost)return;if(!confirm('هل تريد استبدال '+r.cost+' نقطة بمكافأة: '+r.name+'؟'))return;state.coins-=r.cost;state.spent+=r.cost;state.claimed[r.id]=(state.claimed[r.id]||0)+1;save();render();toast('تم الاستبدال! استمتع بمكافأتك: '+r.name);});card.append(icon,main,btn);list.append(card);});
+}
+function renderHistory(){const el=$('history');el.replaceChildren();if(!state.history.length){el.textContent='سيظهر السجل عند بدء يوم جديد.';return;}state.history.slice().reverse().forEach(h=>{const row=safeText('div','history-row','');row.append(safeText('span','','اليوم '+h.day),safeText('span','',h.completed+' مهمة · +'+h.earned+' XP'));el.append(row);});}
+function render(){renderHeader();renderTasks();renderRewards();$('spent').textContent=state.spent;$('days').textContent=state.day;renderHistory();}
+document.querySelectorAll('[data-page]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b===btn));['tasks','rewards','stats'].forEach(p=>$('page-'+p).classList.toggle('hide',p!==btn.dataset.page));}));
+$('addTask').addEventListener('click',()=>{const name=prompt('ما المهمة التي تريد إضافتها؟');if(!name||!name.trim())return;const points=Number(prompt('كم نقطة خبرة تستحق؟ (من 1 إلى 100)','15'));if(!Number.isInteger(points)||points<1||points>100){toast('اختر عدد نقاط صحيحًا من 1 إلى 100.');return;}const t={id:'c'+Date.now(),name:name.trim(),desc:'مهمة شخصية',xp:points,group:'مهامي الخاصة'};state.customTasks.push(t);tasks.push(t);save();render();toast('أُضيفت مهمتك الجديدة.');});
+$('addReward').addEventListener('click',()=>{const name=$('rewardName').value.trim(),cost=Number($('rewardCost').value),kind=$('rewardKind').value;if(!name||!Number.isInteger(cost)||cost<1||cost>100000){toast('أدخل اسمًا وسعرًا صحيحًا للمكافأة.');return;}const r={id:'cr'+Date.now(),name,cost,icon:kind==='حقيقية'?'🎁':kind==='وقت ترفيه'?'🎮':'⭐',kind};state.customRewards.push(r);rewards.push(r);save();render();$('rewardName').value='';toast('أُضيفت المكافأة إلى المتجر.');});
+$('newDay').addEventListener('click',()=>{if(!confirm('بدء يوم جديد؟ سيُحفظ ملخص اليوم وتُعاد علامات المهام فقط. رصيدك وخبرتك سيبقيان كما هما.'))return;const completed=tasks.filter(t=>state.done[t.id]).length,earned=tasks.filter(t=>state.done[t.id]).reduce((s,t)=>s+t.xp,0);state.history.push({day:state.day,completed,earned,date:new Date().toLocaleDateString('ar-EG')});state.day++;state.done={};save();render();toast('بدأ يوم جديد، ورصيدك السابق محفوظ.');});
+$('exportData').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='rihlat-yaseen-backup.json';a.click();URL.revokeObjectURL(url);toast('تم تجهيز النسخة الاحتياطية. احتفظ بها في مكان آمن.');});
+$('importFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{const imported=JSON.parse(await file.text());if(!imported||typeof imported!=='object'||!('xp'in imported)||!('coins'in imported))throw new Error('bad');if(!confirm('استعادة هذه النسخة واستبدال تقدمك الحالي؟'))return;state={...fresh(),...imported};tasks=baseTasks.map(x=>({...x})).concat(state.customTasks||[]);rewards=baseRewards.map(x=>({...x})).concat(state.customRewards||[]);save();render();toast('تمت استعادة النسخة الاحتياطية.');}catch(err){toast('لم نتمكن من قراءة النسخة. اختر ملف JSON صادرًا من اللعبة.');}e.target.value='';});
+$('reset').addEventListener('click',()=>{if(!confirm('هل تريد حذف تقدم اللعبة بالكامل من هذا المتصفح؟ صدّر نسخة احتياطية أولًا إن أردت الاحتفاظ به.'))return;state=fresh();tasks=baseTasks.map(x=>({...x}));rewards=baseRewards.map(x=>({...x}));save();render();toast('بدأت رحلة جديدة. بالتوفيق!');});
+load();tasks=baseTasks.map(x=>({...x})).concat(Array.isArray(state.customTasks)?state.customTasks:[]);rewards=baseRewards.map(x=>({...x})).concat(Array.isArray(state.customRewards)?state.customRewards:[]);render();
+})();
+</script>
+</body>
+</html>
